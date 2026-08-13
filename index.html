@@ -1,38 +1,775 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Batul's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Batul | BCA Student & Web Developer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b16;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 20%, #5533ff44, transparent 30%),
+                radial-gradient(circle at 80% 70%, #00d9ff33, transparent 30%),
+                #080b16;
+        }
+
+        .blob {
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .35;
+            animation: move 10s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        .blob1 {
+            background: #7c3cff;
+            top: 10%;
+            left: -80px;
+        }
+
+        .blob2 {
+            background: #00d9ff;
+            bottom: 10%;
+            right: -80px;
+            animation-delay: 2s;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(120px, 80px);
+            }
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 11, 22, .75);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            background: linear-gradient(90deg,#8b5cf6,#22d3ee);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            color: #22d3ee;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .profile {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin: auto auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bold;
+            background: linear-gradient(135deg,#7c3cff,#00d9ff);
+            box-shadow: 0 0 50px #7040ff66;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 85px);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg,#a78bfa,#22d3ee,#a78bfa);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradient 4s infinite linear;
+        }
+
+        @keyframes gradient {
+            to {
+                background-position: 200%;
+            }
+        }
+
+        .hero p {
+            color: #b8bfd3;
+            font-size: 19px;
+            margin: 15px auto;
+        }
+
+        .typing {
+            color: #22d3ee;
+            font-weight: bold;
+            font-size: 22px;
+            min-height: 30px;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .primary {
+            background: linear-gradient(90deg,#7c3cff,#00cfff);
+            color: white;
+            box-shadow: 0 0 25px #6c4cff55;
+        }
+
+        .secondary {
+            border: 1px solid #ffffff33;
+            color: white;
+            background: #ffffff08;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+        }
+
+        .section-title span {
+            color: #22d3ee;
+        }
+
+        /* ABOUT */
+        .about {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about p {
+            color: #b8bfd3;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* SKILLS */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .skill {
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid #ffffff12;
+            border-radius: 20px;
+            background: #ffffff08;
+            backdrop-filter: blur(10px);
+            transition: .4s;
+        }
+
+        .skill:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: #22d3ee66;
+            box-shadow: 0 15px 40px #0005;
+        }
+
+        .skill-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .skill h3 {
+            margin-bottom: 8px;
+        }
+
+        .skill p {
+            color: #9ca3b5;
+        }
+
+        /* PROJECTS */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .project {
+            position: relative;
+            padding: 30px;
+            border-radius: 22px;
+            background: linear-gradient(145deg,#ffffff0d,#ffffff03);
+            border: 1px solid #ffffff12;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .project::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #7c3cff;
+            filter: blur(80px);
+            opacity: .15;
+            right: -60px;
+            top: -60px;
+        }
+
+        .project:hover {
+            transform: translateY(-12px);
+            border-color: #8b5cf666;
+        }
+
+        .project h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            color: #aeb5c8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #22d3ee15;
+            color: #22d3ee;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* CONTACT */
+        .contact {
+            text-align: center;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact p {
+            color: #aeb5c8;
+            margin-bottom: 30px;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social {
+            padding: 12px 22px;
+            border: 1px solid #ffffff18;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            background: #ffffff08;
+            transition: .3s;
+        }
+
+        .social:hover {
+            background: #22d3ee22;
+            transform: translateY(-4px);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #ffffff10;
+            color: #777f95;
+        }
+
+        /* SCROLL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* MOBILE */
+        @media(max-width:700px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <a href="index.html">Home</a> |
-<a href="about.html">About</a> |
-<a href="contact.html">Contact</a> |
-<a href="projects.html">Projects</a>
 
-<br><br>
-    <h1>Welcome to My Portfolio</h1>
-    <h2>My Skills</h2>
+<div class="background"></div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
 
-<p>HTML | CSS | GitHub | C | C++ | Java | Python</p>
-    <h2>My Projects</h2>
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">Batul.dev</div>
 
-<div>
-    <h3>🧮 Calculator App</h3>
-    <p>A calculator built using HTML, CSS and JavaScript.</p>
-</div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
 
-<div>
-    <h3>📅 Calendar App</h3>
-    <p>A simple calendar application.</p>
-</div>
-    <p>Hello! I am Batul, a BCA student.</p>
-    <button>View My Projects</button>
-    <br><br>
-<a href="about.html">About Me</a>
-    <br><br>
-<a href="contact.html">Contact Me</a>
-    <br><br>
-<a href="projects.html">My Projects</a>
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="profile">B</div>
+
+        <p>Hello, I'm</p>
+
+        <h1>
+            <span class="gradient">Batul</span>
+        </h1>
+
+        <div class="typing"></div>
+
+        <p>
+            BCA student passionate about creating beautiful,
+            interactive and modern websites.
+        </p>
+
+        <div class="buttons">
+            <a href="#projects" class="btn primary">
+                View My Work 🚀
+            </a>
+
+            <a href="#contact" class="btn secondary">
+                Contact Me
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+
+    <h2 class="section-title">
+        About <span>Me</span>
+    </h2>
+
+    <div class="about">
+
+        <p>
+            I am a BCA student who loves technology, web designing
+            and programming. I enjoy turning ideas into interactive
+            websites using HTML, CSS and JavaScript. I am continuously
+            learning new technologies and building projects to improve
+            my development skills.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+
+    <h2 class="section-title">
+        My <span>Skills</span>
+    </h2>
+
+    <div class="skills">
+
+        <div class="skill">
+            <div class="skill-icon">🌐</div>
+            <h3>HTML</h3>
+            <p>Web Structure</p>
+        </div>
+
+        <div class="skill">
+            <div class="skill-icon">🎨</div>
+            <h3>CSS</h3>
+            <p>Modern Designs</p>
+        </div>
+
+        <div class="skill">
+            <div class="skill-icon">⚡</div>
+            <h3>JavaScript</h3>
+            <p>Interactive Websites</p>
+        </div>
+
+        <div class="skill">
+            <div class="skill-icon">💻</div>
+            <h3>C++</h3>
+            <p>Programming</p>
+        </div>
+
+        <div class="skill">
+            <div class="skill-icon">🗄️</div>
+            <h3>GitHub</h3>
+            <p>Project Management</p>
+        </div>
+
+        <div class="skill">
+            <div class="skill-icon">📱</div>
+            <h3>Responsive Design</h3>
+            <p>Mobile Friendly</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+
+    <h2 class="section-title">
+        My <span>Projects</span>
+    </h2>
+
+    <div class="projects">
+
+        <div class="project">
+
+            <h3>🍔 FoodHub</h3>
+
+            <p>
+                A modern restaurant website with menu,
+                hero section, contact section and responsive design.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <h3>🧮 Calculator</h3>
+
+            <p>
+                A simple and interactive calculator created
+                using HTML, CSS and JavaScript.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <h3>📅 Calendar</h3>
+
+            <p>
+                A clean calendar project designed to practice
+                JavaScript and frontend development.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <h3>🌐 Portfolio</h3>
+
+            <p>
+                My personal animated portfolio website where
+                I showcase my skills, projects and learning journey.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+
+    <h2 class="section-title">
+        Let's <span>Connect</span>
+    </h2>
+
+    <div class="contact">
+
+        <p>
+            Want to see my projects or connect with me?
+            Find me on my social platforms.
+        </p>
+
+        <div class="socials">
+
+            <a class="social"
+               href="https://github.com/"
+               target="_blank">
+                🐙 GitHub
+            </a>
+
+            <a class="social"
+               href="#"
+               target="_blank">
+                💼 LinkedIn
+            </a>
+
+            <a class="social"
+               href="mailto:your@email.com">
+                ✉️ Email
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    © 2026 Batul.dev | Built with ❤️ and code.
+
+</footer>
+
+
+<script>
+
+    /* TYPING ANIMATION */
+
+    const typing = document.querySelector(".typing");
+
+    const words = [
+        "BCA Student 💻",
+        "Web Developer 🌐",
+        "Creative Designer 🎨",
+        "Future Software Developer 🚀"
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeEffect() {
+
+        const current = words[wordIndex];
+
+        if (!deleting) {
+
+            typing.textContent =
+                current.substring(0, charIndex + 1);
+
+            charIndex++;
+
+            if (charIndex === current.length) {
+
+                deleting = true;
+
+                setTimeout(typeEffect, 1500);
+                return;
+            }
+
+        } else {
+
+            typing.textContent =
+                current.substring(0, charIndex - 1);
+
+            charIndex--;
+
+            if (charIndex === 0) {
+
+                deleting = false;
+
+                wordIndex++;
+
+                if (wordIndex === words.length) {
+                    wordIndex = 0;
+                }
+
+            }
+
+        }
+
+        setTimeout(typeEffect, deleting ? 50 : 100);
+    }
+
+    typeEffect();
+
+
+    /* SCROLL REVEAL */
+
+    function revealOnScroll() {
+
+        const reveals =
+            document.querySelectorAll(".reveal");
+
+        reveals.forEach(element => {
+
+            const windowHeight =
+                window.innerHeight;
+
+            const elementTop =
+                element.getBoundingClientRect().top;
+
+            if (elementTop < windowHeight - 100) {
+                element.classList.add("active");
+            }
+
+        });
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        revealOnScroll
+    );
+
+    revealOnScroll();
+
+</script>
+
 </body>
-</html>
+                                          </html>
